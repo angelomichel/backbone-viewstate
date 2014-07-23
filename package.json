@@ -4,8 +4,7 @@
   "keywords"      : ["viewstate"],
   "author"        : "Angelo Michel",
   "dependencies"  : {
-    "underscore"  : ">=1.5.0",
-    "underscore"  : ">=1.1.2"
+    "backbone"  : ">=1.1.2"
   },
   "devDependencies": {
     "phantomjs": "1.9.7-8",
