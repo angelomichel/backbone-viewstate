@@ -34,10 +34,10 @@
   // For example:
   //
   //     render: function() {
-  //       this.el.html(_.extend(
+  //       this.el.html(template(_.extend(
   //          this.viewState.getAttributes(),
   //          this.model.toJSON()
-  //       ));
+  //       )));
   //     }
   //
   var ViewState = Backbone.ViewState = function(attributes) {
