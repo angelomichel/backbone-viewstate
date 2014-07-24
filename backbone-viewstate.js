@@ -1,21 +1,21 @@
-/*global
-  require, define
-*/
+// for jshint
+/*global require, define */
 
 (function(root, factory) {
-  // Start with AMD.
+  // Start with AMD support.
   if (typeof define === 'function' && define.amd) {
     define(['underscore', 'backbone'], function(_, Backbone) {
       factory(root, _, Backbone);
     });
 
-  // Next for Node.js or CommonJS.
+  // Next check for Node.js or CommonJS.
   } else if (typeof exports !== 'undefined') {
     var _ = require('underscore');
     var Backbone = require('backbone');
     factory(root, _, Backbone);
 
-  // as browser global
+  // Finnaly, if none of the above, create the extension and
+  // assume Backbone is available at (browser) global scope.
   } else {
     factory(root, root._, root.Backbone);
   }
@@ -24,7 +24,7 @@
   // Backbone.ViewState
   // ------------------
 
-  // Backbone **ViewState** objects are designed to be nothing more but
+  // `Backbone.ViewState` objects are designed to be nothing more but
   // a wrapper that is not a Model but does need to 'hold' data.
   // An example of a ViewState value is when your mouse or finger
   // is hovering over some target to add `{over: true}` to the viewState.
@@ -56,7 +56,7 @@
       return _.clone(this.attributes);
     },
 
-    // set a hash of attributes on the object (firing `change`). This is
+    // Set a hash of attributes on the object (firing `change`). This is
     // the core operation of a viewState object, updating the data and
     // notifying anyone who needs to know about the change.
     set: function(key, val, options) {
@@ -65,6 +65,8 @@
         return this;
       }
 
+      // Like in Backbone.Model, you can supply both `{key: value}` as
+      // `"key", value`-style arguments.
       if (typeof key === 'object') {
         attrs = key;
         options = val;
@@ -99,12 +101,12 @@
       return this;
     },
 
-    // remove an attribute from the object, also firing a `change`.
+    // Remove an attribute from the object, also firing a `change`.
     unset: function(attr, options) {
       return this.set(attr, void 0, _.extend({}, options, {unset: true}));
     },
 
-    // clear all attributes off this model, also firing `change`
+    // Clear all attributes off this model, also firing `change`
     clear: function(options) {
       var attrs = {};
       for (var key in this.attributes) {
@@ -113,4 +115,6 @@
       return this.set(attrs, _.extend({}, options, {unset: true}));
     }
   });
+
+  return Backbone.ViewState;
 }));
